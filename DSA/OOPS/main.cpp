@@ -47,6 +47,15 @@ int main(){
     int price=a1.getPrice();
     cout<<"Price of animal is "<<price<<endl;
 
+    //by dynamic memory allocation 
+    Animal* a2=new Animal;
+    a2->name="Tiger";
+    a2->age=20;
+    cout<<a2->name<<endl;
+    cout<<a2->age<<endl;
+
+    delete a2;
+
 
 
     return 0;
