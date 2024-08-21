@@ -6,6 +6,9 @@ class Animal{
     int num2;
     char ch;
 
+    private:
+        int price;
+
     public:
     string name;
     int age;
@@ -16,6 +19,13 @@ class Animal{
     void sleep(){
         cout<<"Sleeping!"<<endl;
     }
+    int getPrice(){
+        return price;
+    }
+    void setPrice(int p){
+        price=p;
+    }
+
 };
 
 
@@ -33,6 +43,11 @@ int main(){
     cout<<"Age of animal is "<<a1.age<<endl;
     a1.eat();
     a1.sleep();
+    a1.setPrice(101);
+    int price=a1.getPrice();
+    cout<<"Price of animal is "<<price<<endl;
+
+
 
     return 0;
 }
