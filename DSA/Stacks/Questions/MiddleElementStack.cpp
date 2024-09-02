@@ -18,8 +18,6 @@ void findMiddle(stack<int>&st, int total_size){
 
 }
 
-
-
 int main(){
     stack<int>st;
     st.push(10);
