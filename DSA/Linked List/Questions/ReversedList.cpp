@@ -1,3 +1,4 @@
+// * Optimal 
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -46,5 +47,46 @@ public:
             curr=temper;
             rev=rever;
         }
+    }
+};
+
+//* Brute but better run time but O(N) both time and space complexity 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        stack<ListNode*>st;
+        ListNode* temp=head;
+        
+        int count=0;
+        
+        while(temp!=NULL){
+            count++;
+            st.push(temp);
+            temp=temp->next;
+        }
+
+        int k=count/2;
+
+        ListNode* curr=head;
+        while(k>0){
+                ListNode* temper=curr->next;
+                ListNode* last=st.top();
+                st.pop();
+                curr->next=last;
+                last->next=temper;
+                curr=temper;
+            k--;
+        }
+            curr->next=NULL;
     }
 };
