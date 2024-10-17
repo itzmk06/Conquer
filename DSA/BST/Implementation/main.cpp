@@ -207,40 +207,103 @@ int getInOrderPredessor(Node* root,Node* &predessor,int data){
     return -1;
 }
 
+void convertBSTtoDLL(Node* root,Node* &head){
+    // if root is empty return 
+    if(root==NULL){
+        return;
+    }
+    // go to right end 
+    convertBSTtoDLL(root->right,head);
+    // here you'll be at leaf node of right most 
+    // make leaf node right to point to head
+    root->right=head;
+    // update head if it's not null 
+    if(head!=NULL){
+        head->left=root;
+    }
+    // make root as head 
+    head=root;
+    // call for left sub tree 
+    convertBSTtoDLL(root->left,head);
+
+}
+
+Node* convertDllToBst(Node* &head, int n) {
+    // if n<=0 or head is null return 
+    if(head==NULL||n<=0){
+        return NULL;
+    }
+    // construct left sub tree
+    Node* leftSubTree=convertDllToBst(head,(n/2));
+    // now your head points to mid 
+    // store it 
+    Node* root=head;
+    // make the head to point to next 
+    head=head->right;
+    // make root left to point to left subtree 
+    root->left=leftSubTree;
+    // make root right to point to right sub tree
+    root->right=convertDllToBst(head,n-n/2-1);
+    return root;
+}
+
+
+void printDLL(Node* head){
+    Node* temp=head;
+    cout<<endl;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->right;
+    }
+    cout<<endl;
+}
+
 int main(){
     Node* root=NULL;
     // take input
     takeInput(root);
     cout<<"\nPrinting level order:\n";
     levelOrderTraversal(root);
-    cout<<"\nPrinting pre order:\n";
-    preOrder(root);
-    cout<<"\nPrinting post order:\n";
-    postOrder(root);
-    cout<<"\nPrinting in order:\n";
-    inOrder(root);
+    // cout<<"\nPrinting pre order:\n";
+    // preOrder(root);
+    // cout<<"\nPrinting post order:\n";
+    // postOrder(root);
+    // cout<<"\nPrinting in order:\n";
+    // inOrder(root);
+    // cout<<endl;
+    // cout<<searchInBst(root,20)<<endl;
+    // cout<<searchInBst(root,5)<<endl;
+    // cout<<searchInBst(root,500)<<endl;
+    // cout<<"Min value in bst is "<<minValue(root);
+    // cout<<endl;
+    // cout<<"Max value in bst is "<<maxValue(root);
+    // cout<<endl;
+    // Node* predessor=NULL;
+    // cout<<"Inorder predessor of 20 is "<<getInOrderPredessor(root,predessor,20)<<endl;
+    // cout<<"Inorder predessor of 10 is "<<getInOrderPredessor(root,predessor,10)<<endl;
+    // cout<<"Inorder predessor of 11 is "<<getInOrderPredessor(root,predessor,11)<<endl;
+    // cout<<"Inorder predessor of 8 is "<<getInOrderPredessor(root,predessor,8)<<endl;
+    // cout<<"Inorder predessor of 5 is "<<getInOrderPredessor(root,predessor,5)<<endl;
+    // cout<<endl;
+    // Node* successor=NULL;
+    // cout<<"Inorder successor of 20 is "<<getInOrderSuccessor(root,successor,20)<<endl;
+    // cout<<"Inorder successor of 10 is "<<getInOrderSuccessor(root,successor,10)<<endl;
+    // cout<<"Inorder successor of 11 is "<<getInOrderSuccessor(root,successor,11)<<endl;
+    // cout<<"Inorder successor of 8 is "<<getInOrderSuccessor(root,successor,8)<<endl;
+    // cout<<"Inorder successor of 5 is "<<getInOrderSuccessor(root,successor,5)<<endl;
+    // cout<<endl;
+    
+
+    // * implementing convert bst into sorted list 
+    Node* head=NULL;
+    convertBSTtoDLL(root,head);
+    printDLL(head);
+
     cout<<endl;
-    cout<<searchInBst(root,20)<<endl;
-    cout<<searchInBst(root,5)<<endl;
-    cout<<searchInBst(root,500)<<endl;
-    cout<<"Min value in bst is "<<minValue(root);
-    cout<<endl;
-    cout<<"Max value in bst is "<<maxValue(root);
-    cout<<endl;
-    Node* predessor=NULL;
-    cout<<"Inorder predessor of 20 is "<<getInOrderPredessor(root,predessor,20)<<endl;
-    cout<<"Inorder predessor of 10 is "<<getInOrderPredessor(root,predessor,10)<<endl;
-    cout<<"Inorder predessor of 11 is "<<getInOrderPredessor(root,predessor,11)<<endl;
-    cout<<"Inorder predessor of 8 is "<<getInOrderPredessor(root,predessor,8)<<endl;
-    cout<<"Inorder predessor of 5 is "<<getInOrderPredessor(root,predessor,5)<<endl;
-    cout<<endl;
-    Node* successor=NULL;
-    cout<<"Inorder successor of 20 is "<<getInOrderSuccessor(root,successor,20)<<endl;
-    cout<<"Inorder successor of 10 is "<<getInOrderSuccessor(root,successor,10)<<endl;
-    cout<<"Inorder successor of 11 is "<<getInOrderSuccessor(root,successor,11)<<endl;
-    cout<<"Inorder successor of 8 is "<<getInOrderSuccessor(root,successor,8)<<endl;
-    cout<<"Inorder successor of 5 is "<<getInOrderSuccessor(root,successor,5)<<endl;
-    cout<<endl;
+
+    // * implementing convert sorted list to bst
+    Node* root1=convertDllToBst(head,11);
+    levelOrderTraversal(root1);
 
     return 0;
 }
