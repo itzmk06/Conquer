@@ -1,3 +1,5 @@
+// optimal approach -> o(log n)
+
 class Solution {
 public:
     int peakIndexInMountainArray(vector<int>& arr) {
@@ -12,5 +14,19 @@ public:
             }
         }
         return beg;
+    }
+};
+
+
+// bruteforce approach -> 0(n)
+
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& arr) {
+        int i=0;
+        while(i<arr.size()-1&&arr[i]<arr[i+1]){
+            i++;
+        }
+        return i;
     }
 };
