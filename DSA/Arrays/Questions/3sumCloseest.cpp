@@ -20,3 +20,33 @@ public:
         return ans;
     }
 };
+
+//* optimal 
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int closest_sum = 6868656;
+        // sort karlo
+        sort(nums.begin(), nums.end());
+        // two sum daldo
+        // traverse whole array
+        for (int k = 0; k <= nums.size() - 3; k++) {
+            int i = k + 1;
+            int j = nums.size() - 1;
+            while (i < j) {
+                // get sum
+                int sum = nums[i] + nums[j] + nums[k];
+                if (abs(target - sum) < abs(target - closest_sum)) {
+                    closest_sum = sum;
+                }
+                if(sum<target){
+                    i++;
+                }else{
+                    j--;
+                }
+
+            }
+        }
+        return closest_sum;
+    }
+};
