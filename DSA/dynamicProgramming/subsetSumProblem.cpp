@@ -69,3 +69,81 @@ int main() {
 }
 
 // } Driver Code Ends
+
+
+// * using iteration 
+//{ Driver Code Starts
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function template for C++
+
+class Solution {
+  public:
+    bool isSubsetSum(vector<int>& arr, int target) {
+        // intialization 
+        int n=arr.size();
+        int t[n+1][target+1];
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<target+1;j++){
+                // false when no elements but sum is not 0 
+                if(i==0&&j!=0){
+                    t[i][j]=false;
+                }
+                // sum is 0 
+                if(j==0){
+                    t[i][j]=true;
+                }
+            }
+        }
+        // choice diagram 
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<target+1;j++){
+                // check whether it's acceptable 
+                if(arr[i-1]<=j){
+                    // either include it or exclude it 
+                    t[i][j]=t[i-1][j-arr[i-1]]||t[i-1][j];
+                }else{
+                    // exclude it 
+                    t[i][j]=t[i-1][j];
+                }
+            }
+        }
+        return t[n][target];
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+
+    int t;
+    cin >> t;
+    cin.ignore();
+    while (t--) {
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
+        int sum;
+        cin >> sum;
+        cin.ignore();
+
+        Solution ob;
+        if (ob.isSubsetSum(arr, sum))
+            cout << "true" << endl;
+        else
+            cout << "false" << endl;
+        cout << "~" << endl;
+    }
+    return 0;
+}
+
+// } Driver Code Ends
