@@ -51,3 +51,25 @@ public:
         return fn(n,dp);
     }
 };
+
+// * space optimization 
+class Solution {
+public:
+    int fn(int n,vector<int>&dp) {
+        if(n<=1){
+            return n;
+        }
+        int prev2=0;
+        int prev=1;
+        for(int i=2;i<n+1;i++){
+            int curr=prev+prev2;
+            prev2=prev;
+            prev=curr;
+        }
+        return prev;
+    }
+    int fib(int n){
+        vector<int>dp(n+1,-1);
+        return fn(n,dp);
+    }
+};
