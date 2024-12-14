@@ -30,3 +30,24 @@ public:
         return fn(n,dp);
     }
 };
+
+// * with tabulation 
+class Solution {
+public:
+    int fn(int n,vector<int>&dp) {
+        // base case => intialization 
+        dp[0]=0;
+        if(n>0){
+            dp[1]=1;
+        }
+        // choice diagram filling 
+        for(int i=2;i<n+1;i++){
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        return dp[n];
+    }
+    int fib(int n){
+        vector<int>dp(n+1,-1);
+        return fn(n,dp);
+    }
+};
