@@ -23,3 +23,23 @@ public:
     }
 };
 
+// * using string 
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        string new_str="";
+        // filter string 
+        for(auto i:s){
+            if(isalnum(i)){
+                new_str+=tolower(i);
+            }
+        }
+        string reversed_str="";
+        // reverse string 
+        for(int i=new_str.size()-1;i>=0;i--){
+            reversed_str+=new_str[i];
+        }
+        return new_str==reversed_str;
+
+    }
+};
