@@ -28,3 +28,33 @@ public:
 
     }
 };
+// * using hashset 
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        if(nums.empty()) return 0;
+        // create set, to remove duplicates 
+        unordered_set<int>numSet(nums.begin(),nums.end());
+        // no longest find so far 
+        int longest=0;
+        // iterate over nums, get smallest element 
+        // which means there's no previous element to that 
+        for(auto num:numSet){
+            if(numSet.find(num-1)==numSet.end()){
+                // we didn't find any previous element 
+                // check whether for current element there's consecutive element 
+                int currentNum=num;
+                int count=1;
+                while(numSet.find(currentNum+1)!=numSet.end()){
+                    // found a consecutive element, increment count 
+                    count++;
+                    // check for next consecutive number 
+                    currentNum++; 
+                }
+                // update longest 
+                longest=max(count,longest);
+            }
+        }
+        return longest;
+    }
+};
