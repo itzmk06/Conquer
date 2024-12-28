@@ -43,3 +43,25 @@ public:
 
     }
 };
+
+// * optimal 
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        // clean the string 
+        string new_str="";
+        for(auto c:s){
+            if(isalnum(c)){
+                new_str+=tolower(c);
+            }
+        }
+        // compare with two pointers
+        int i=0,j=new_str.size()-1;
+        while(i<j){
+            if(new_str[i]!=new_str[j]) return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+};
