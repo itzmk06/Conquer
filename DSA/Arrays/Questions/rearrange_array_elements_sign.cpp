@@ -29,3 +29,29 @@ public:
         return nums;
     }
 };
+
+
+// * optimal 
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+     vector<int>result(nums.size());
+        // traverse array
+        int p=0;
+        int n=1; 
+        for(int i:nums){
+            if(i>=0&&p<nums.size()){
+                // put in even index
+                result[p]=i;
+                p+=2;
+            }else{
+                // put in odd index
+                if(n<nums.size()){
+                    result[n]=i;
+                n+=2;
+                }
+            }
+        } 
+        return result;
+    }
+};
